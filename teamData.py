@@ -1,9 +1,12 @@
 import requests
 import pandas as pd
+import os
 
-def writeToFile(teams):
+def writeToFile(teams, filePath):
     df = pd.DataFrame(teams)
-    df.to_csv('kivaTeams.csv', sep=',', mode='a', index=False)
+    # write hearder only once
+    write_header = not os.path.exists(filePath)
+    df.to_csv(filePath, header=write_header, sep=',', mode='a', index=False)
 
 def callApi(query):
     baseUrl = 'https://api.kivaws.org/graphql?query='
@@ -53,6 +56,6 @@ while start <= totalCount:
     if not teamsResponse:
         break
     teams = teamsResponse['data']['community']['teams']['values']
-    writeToFile(teams)
+    writeToFile(teams, 'kivaTeams.csv')
     start += limit  
 
