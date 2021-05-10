@@ -19,13 +19,12 @@ def callApi(query):
         print(r.json()['errors'])
 
 # get the total number of teams
-# teamCountQuery = '{community {teams {totalCount}}}'
-# teamCountResponse = callApi(teamCountQuery)
-# if not teamCountResponse:
-#     exit()
-# totalCount = teamCountResponse['data']['community']['teams']['totalCount']
+teamCountQuery = '{community {teams {totalCount}}}'
+teamCountResponse = callApi(teamCountQuery)
+if not teamCountResponse:
+    exit()
+totalCount = teamCountResponse['data']['community']['teams']['totalCount']
 
-totalCount = 200
 start = 0
 limit = 100     # since the API does not allow more than 100 rows per query  
 while start <= totalCount:
