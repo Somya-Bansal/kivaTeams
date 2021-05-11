@@ -1,6 +1,7 @@
 import requests
 import pandas as pd
 import os
+import time
 
 def writeToFile(teams, filePath):
     df = pd.DataFrame(teams)
@@ -10,6 +11,7 @@ def writeToFile(teams, filePath):
 
 def callApi(query):
     baseUrl = 'https://api.kivaws.org/graphql?query='
+    time.sleep(2)
     r = requests.post(baseUrl + query )
     if r.status_code == 200:
         print(r)
